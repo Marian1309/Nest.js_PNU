@@ -8,7 +8,31 @@ datasource db {
 }
 
 model User {
-  id    String @id
-  name  String
-  email String @unique
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
+  password  String
+  name      String?
+  templates Template[]
+}
+
+model Template {
+  id      Int    @id @default(autoincrement())
+  name    String
+  content String
+  userId  Int
+  user    User   @relation(fields: [userId], references: [id])
+}
+
+model Recipient {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+}
+
+model ScheduledEmail {
+  id          Int      @id @default(autoincrement())
+  templateId  Int
+  recipientId Int
+  sendAt      DateTime
+  status      String
 }

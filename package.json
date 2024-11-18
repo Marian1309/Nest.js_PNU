@@ -18,8 +18,8 @@
     "start:prod": "node dist/main",
     "db:pull": "prisma db pull",
     "db:push": "prisma db push",
-    "db:migrate": "prisma migrate dev --name",
-    "generate": "prisma generate"
+    "db:gen": "prisma generate",
+    "db:migrate": "prisma migrate dev --name"
   },
   "browserslist": {
     "production": [
