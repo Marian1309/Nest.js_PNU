@@ -1,106 +1,77 @@
 ---
-title: Get Table
-icon: HomeIcon
+title: Get Books
+icon: BookIcon
 ---
 
-# API Documentation: Get Table Details
+# API Documentation: Get Books
 
-Retrieve all rows for a specific table, including their associated column data.
+Retrieve a list of books with optional pagination.
 
 ---
 
 ## Endpoint
 
-**GET** `http://tryincant.com/api/v1/tables/get`
+**GET** `http://localhost:3000/api/books`
 
 ## Description
 
-This endpoint retrieves the details of a specified table, including its description, name, columns, and rows. It requires an authorization token and a `tableId` as a query parameter.
-
-## Authentication
-
-### Required Header
-
-- **Authorization**: Bearer token
+This endpoint retrieves a list of books from the database. Pagination can be controlled using optional query parameters.
 
 ## Query Parameters
 
-- **tableId** (number, required): The ID of the table to retrieve.
-- **locale** (string, optional): The locale for the response. Defaults to "en" if not provided.
+- **skip** (number, optional): Number of records to skip. Defaults to `0` if not provided.
+- **take** (number, optional): Number of records to retrieve. Defaults to `10` if not provided.
 
 ## Request Example
 
 ```http
-GET http://tryincant.com/api/v1/tables/get?tableId=103&locale=en
-Authorization: Bearer `Your_token`
+GET http://localhost:3000/api/books?skip=0&take=10
 ```
 
 ## Response
 
 ### Success Response
 
-**Status Code:** `200 OK`
+**Status Code:** 200 OK
 
 **Response Body:**
 
 ```json
 {
-  "data": {
-    "table": {
-      "description": "Positions of employers",
-      "name": "Positions",
-      "id": 103,
-      "columns": [
-        "Email",
-        "Company Name",
-        "Position Type",
-        "Location",
-        "Position Name",
-        "Minimum Experience",
-        "Job description"
-      ],
-      "rows": [
-        {
-          "id": 60,
-          "userId": "kp_33aa20187066449b88b3244e8ef3325a",
-          "cols": [
-            {
-              "id": 318,
-              "value": "Sales Manager",
-              "isSearchable": true,
-              "type": "TEXT",
-              "colId": 573
-            }
-          ]
-        }
-      ]
+  "data": [
+    {
+      "id": 1,
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "description": "A classic novel set in the Roaring Twenties, following the mysterious Jay Gatsby.",
+      "price": 10.99,
+      "createdAt": "2024-01-01T12:00:00Z",
+      "updatedAt": "2024-01-01T12:00:00Z"
+    },
+    {
+      "id": 2,
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "description": "A powerful story about racial injustice in the Deep South during the 1930s.",
+      "price": 12.99,
+      "createdAt": "2024-01-01T12:00:00Z",
+      "updatedAt": "2024-01-01T12:00:00Z"
     }
-  }
+  ]
 }
 ```
 
 ### Error Responses
 
-The Update Table Row endpoint may return several error responses based on different failure conditions. Below are the possible error responses:
+The Get Books endpoint may return several error responses based on different failure conditions:
 
-- **Unauthorized**
+### No Books Found
 
-  - **Status Code:** `401 Unauthorized`
-  - **Response Body:**
+- **Status Code:** `400 Bad Request`
+- **Response Body:**
 
-    ```json
-    {
-      "message": "Unauthorized"
-    }
-    ```
-
-- **No Translations Found**
-
-  - **Status Code:** `404 Not Found`
-  - **Response Body:**
-
-    ```json
-    {
-      "message": "No translations found"
-    }
-    ```
+  ```json
+  {
+    "message": "No books found"
+  }
+  ```

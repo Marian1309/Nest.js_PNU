@@ -1,117 +1,85 @@
 ---
-title: Add Table Row
-icon: HomeIcon
+title: Add a Book
+icon: BookIcon
 ---
 
-# API Documentation: Add Row
+# API Documentation: Add a Book
 
-Add a new row to a specified table with column data.
+Add a new book to the database.
 
 ---
 
 ## Endpoint
 
-**POST** `http://tryincant.com/api/v1/tables/add`
-
----
+**POST** `http://localhost:3000/api/books`
 
 ## Description
 
-This endpoint adds a new row to a specified table using the row’s data (`tableId`, `userId`, and column values). A Bearer token for authentication is required.
-
----
-
-## Authentication
-
-### Required Header
-
-- **Authorization**: Bearer token
-
-  ```http
-  Authorization: Bearer `Your_token`
-  ```
+This endpoint allows you to create a new book by providing the required book details.
 
 ## Request Body
 
-| Parameter | Type             | Required | Description                             |
-| --------- | ---------------- | -------- | --------------------------------------- |
-| tableId   | number           | Yes      | The unique ID of the table to add a row |
-| userId    | string           | Yes      | The ID of the user associated with row  |
-| data      | array of objects | Yes      | Array of column data objects            |
+The body of the request should contain the book details in the following format:
 
-Each object in the `data` array includes:
+```json
+{
+  "title": "string",
+  "author": "string",
+  "description?": "string",
+  "price": "number"
+}
+```
 
-| Field        | Type    | Required | Description                            |
-| ------------ | ------- | -------- | -------------------------------------- |
-| colId        | number  | Yes      | The unique ID of the column            |
-| value        | string  | Yes      | The value to be added in the column    |
-| isSearchable | boolean | No       | Whether the column value is searchable |
+```json
+{
+  "title": "New Book Title",
+  "author": "Author Name",
+  "description": "Description of the book",
+  "price": 15.99
+}
+```
 
----
-
-The `data` parameter contains an array where each object corresponds to a column in the row being added, including its ID, value, and searchability setting.
-
-## Example Request
+## Request Example
 
 ```http
-POST http://tryincant.com/api/v1/tables/addRow
-Authorization: Bearer `Your_token`
-Content-Type: application/json
-
-{
-  "tableId": 103,
-  "userId": "kp_33aa20187066449b88b3244e8ef3325a",
-  "data": [
-    {
-      "colId": 573,
-      "value": "Sales Manager",
-      "isSearchable": true
-    },
-    {
-      "colId": 574,
-      "value": "Company XYZ"
-    }
-  ]
-}
-
+POST http://localhost:3000/api/books
 ```
 
 ## Response
 
 ### Success Response
 
-- **Status Code:** `201 Created`
-- **Response Body:**
+**Status Code:** 200 OK
 
-  ```json
-  {
-    "message": "Success"
+**Response Body:**
+
+```json
+{
+  "message": "Book with id 123 successfully created",
+  "data": {
+    "id": 123,
+    "title": "New Book Title",
+    "author": "Author Name",
+    "description": "Description of the book",
+    "price": 15.99,
+    "createdAt": "2024-01-01T12:00:00Z",
+    "updatedAt": "2024-01-01T12:00:00Z"
   }
-  ```
+}
+```
 
 ### Error Responses
 
-The Update Table Row endpoint may return several error responses based on different failure conditions. Below are the possible error responses:
+The Get Books endpoint may return several error responses based on different failure conditions:
 
-#### Unauthorized
-
-- **Status Code:** `401 Unauthorized`
-
-- **Response Body:**
-
-  ```json
-  {
-    "message": "Unauthorized"
-  }
-  ```
-
-### Invalid Columns Provided
+### Invalid data
 
 - **Status Code:** `400 Bad Request`
 - **Response Body:**
 
   ```json
   {
-    "message": "Invalid columns provided"
+    "message": "Invalid Data.",
+    "status": 404
   }
   ```

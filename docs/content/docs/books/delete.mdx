@@ -1,91 +1,85 @@
 ---
-title: Delete Table Row
-icon: HomeIcon
+title: Delete a Book
+icon: BookIcon
 ---
 
-# API Documentation: Delete Table Row
+# API Documentation: Delete a Book
 
-Delete a specified row from a table in the project.
+Delete a book from the database.
 
 ---
 
 ## Endpoint
 
-**DELETE** `http://tryincant.com/api/v1/tables/delete`
-
----
+**DELETE** `http://localhost:3000/api/books/${bookId}`
 
 ## Description
 
-This endpoint deletes a row from a specified table using the row’s unique identifier (`tableRowId`). A Bearer token for authentication is required.
-
----
-
-## Authentication
-
-### Required Header
-
-- **Authorization**: Bearer token
-
-  ```http
-  Authorization: Bearer `Your_token`
-  ```
-
----
+This endpoint allows you to delete a book by providing the book's `id`.
 
 ## Request Body
 
-| Parameter  | Type   | Required | Description                         |
-| ---------- | ------ | -------- | ----------------------------------- |
-| tableRowId | number | Yes      | The unique ID of the row to delete. |
+The body of the request should contain the book details in the following format:
 
-## Example Request
+```json
+{
+  "title": "string",
+  "author": "string",
+  "description?": "string",
+  "price": "number"
+}
+```
+
+```json
+{
+  "title": "New Book Title",
+  "author": "Author Name",
+  "description": "Description of the book",
+  "price": 15.99
+}
+```
+
+## Request Example
 
 ```http
-POST http://tryincant.com/api/v1/tables/delete
-Authorization: Bearer `Your_token`
-Content-Type: application/json
-
-{
-  "tableRowId": 60
-}
+DELETE http://localhost:3000/api/books/1
 ```
 
 ## Response
 
 ### Success Response
 
-- **Status Code:** `200 OK`
-- **Response Body:**
+**Status Code:** 200 OK
 
-  ```json
-  {
-    "message": "Success"
+**Response Body:**
+
+```json
+{
+  "message": "Book with id 1 successfully deleted",
+  "data": {
+    "id": 1,
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "description": "A classic novel set in the Roaring Twenties, following the mysterious Jay Gatsby.",
+    "price": 10.99,
+    "createdAt": "2024-01-01T12:00:00Z",
+    "updatedAt": "2024-01-01T12:00:00Z"
   }
-  ```
+}
+```
 
 ### Error Responses
 
-The Update Table Row endpoint may return several error responses based on different failure conditions. Below are the possible error responses:
+The Get Books endpoint may return several error responses based on different failure conditions:
 
-#### Unauthorized
+### Not Found
 
-- **Status Code:** `401 Unauthorized`
+- **Status Code:** `400 Bad Request`
 - **Response Body:**
 
   ```json
   {
-    "message": "Unauthorized"
-  }
-  ```
-
-#### No Row Found
-
-- **Status Code:** `404 Not Found`
-- **Response Body:**
-
-  ```json
-  {
-    "message": "No row found"
+    "message": "You can't delete book with id 1 because it not found.",
+    "status": 404
   }
   ```

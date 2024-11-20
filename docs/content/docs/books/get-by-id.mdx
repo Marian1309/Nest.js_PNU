@@ -1,106 +1,66 @@
 ---
-title: Get Table
-icon: HomeIcon
+title: Get Book by id
+icon: BookIcon
 ---
 
-# API Documentation: Get Table Details
+# API Documentation: Get a specific Book
 
-Retrieve all rows for a specific table, including their associated column data.
+Retrieve a list of books with optional pagination.
 
 ---
 
 ## Endpoint
 
-**GET** `http://tryincant.com/api/v1/tables/get`
+**GET** `http://localhost:3000/api/books/${bookId}`
 
 ## Description
 
-This endpoint retrieves the details of a specified table, including its description, name, columns, and rows. It requires an authorization token and a `tableId` as a query parameter.
-
-## Authentication
-
-### Required Header
-
-- **Authorization**: Bearer token
+This endpoint retrieves a single book based on the provided `id`. If the book is not found, a 404 error message will be returned.
 
 ## Query Parameters
 
-- **tableId** (number, required): The ID of the table to retrieve.
-- **locale** (string, optional): The locale for the response. Defaults to "en" if not provided.
+- **id** (string, required): The ID of the book to retrieve.
 
 ## Request Example
 
 ```http
-GET http://tryincant.com/api/v1/tables/get?tableId=103&locale=en
-Authorization: Bearer `Your_token`
+GET http://localhost:3000/api/books/1
 ```
 
 ## Response
 
 ### Success Response
 
-**Status Code:** `200 OK`
+**Status Code:** 200 OK
 
 **Response Body:**
 
 ```json
 {
   "data": {
-    "table": {
-      "description": "Positions of employers",
-      "name": "Positions",
-      "id": 103,
-      "columns": [
-        "Email",
-        "Company Name",
-        "Position Type",
-        "Location",
-        "Position Name",
-        "Minimum Experience",
-        "Job description"
-      ],
-      "rows": [
-        {
-          "id": 60,
-          "userId": "kp_33aa20187066449b88b3244e8ef3325a",
-          "cols": [
-            {
-              "id": 318,
-              "value": "Sales Manager",
-              "isSearchable": true,
-              "type": "TEXT",
-              "colId": 573
-            }
-          ]
-        }
-      ]
-    }
+    "id": 1,
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "description": "A classic novel set in the Roaring Twenties, following the mysterious Jay Gatsby.",
+    "price": 10.99,
+    "createdAt": "2024-01-01T12:00:00Z",
+    "updatedAt": "2024-01-01T12:00:00Z"
   }
 }
 ```
 
 ### Error Responses
 
-The Update Table Row endpoint may return several error responses based on different failure conditions. Below are the possible error responses:
+The Get Books endpoint may return several error responses based on different failure conditions:
 
-- **Unauthorized**
+### No Book Found
 
-  - **Status Code:** `401 Unauthorized`
-  - **Response Body:**
+- **Status Code:** `400 Bad Request`
+- **Response Body:**
 
-    ```json
-    {
-      "message": "Unauthorized"
-    }
-    ```
-
-- **No Translations Found**
-
-  - **Status Code:** `404 Not Found`
-  - **Response Body:**
-
-    ```json
-    {
-      "message": "No translations found"
-    }
-    ```
+  ```json
+  {
+    "message": "Book with id 1 not found.",
+    "status": 404
+  }
+  ```
