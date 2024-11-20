@@ -19,7 +19,7 @@
     "db:pull": "prisma db pull",
     "db:push": "prisma db push",
     "db:gen": "prisma generate",
-    "db:migrate": "prisma migrate dev --name"
+    "db:migrate": "prisma migrate dev"
   },
   "browserslist": {
     "production": [
