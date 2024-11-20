@@ -1,0 +1,79 @@
+---
+title: Book API Documentation
+description: Comprehensive guide to managing books using the Book API with NestJS and Prisma ORM.
+icon: BookIcon
+---
+
+import Link from 'next/link';
+
+import { Card, Cards } from 'fumadocs-ui/components/card';
+
+<Cards>
+	<Link href="/docs/books/add" className="no-underline" aria-label="Navigate to Create Book documentation">
+		<Card
+			description="Create a new book by providing the necessary details through a POST request."
+			title="Create Book"
+		/>
+	</Link>
+
+    <Link href="/docs/books/get-all" className="no-underline" aria-label="Navigate to Get All Books documentation">
+    	<Card
+    		description="Retrieve a list of all books stored in the database via a GET request."
+    		title="Get All Books"
+    	/>
+    </Link>
+
+    <Link href="/docs/books/get-by-id" className="no-underline" aria-label="Navigate to Get Book By ID documentation">
+    	<Card
+    		description="Fetch details of a specific book by its ID using a GET request."
+    		title="Get Book By ID"
+    	/>
+    </Link>
+
+    <Link href="/docs/books/update" className="no-underline" aria-label="Navigate to Update Book documentation">
+    	<Card
+    		description="Update details of an existing book by its ID using a PATCH request."
+    		title="Update Book"
+    	/>
+    </Link>
+
+    <Link href="/docs/books/delete" className="no-underline" aria-label="Navigate to Delete Book documentation">
+    	<Card
+    		description="Delete a book from the database by its ID using a DELETE request."
+    		title="Delete Book"
+    	/>
+    </Link>
+
+</Cards>
+
+## Example API Endpoints
+
+Here are the endpoints provided by the Book API:
+
+- **Create a book**: `POST [http://localhost:3000/books](http://localhost:3000/books)`
+- **Get all books**: `GET [http://localhost:3000/books](http://localhost:3000/books)`
+- **Get a book by ID**: `GET [http://localhost:3000/books/1](http://localhost:3000/books/1)`
+- **Update a book**: `PATCH [http://localhost:3000/books/1](http://localhost:3000/books/1)`
+- **Delete a book**: `DELETE [http://localhost:3000/books/1](http://localhost:3000/books/1)`
+
+## Project Highlights
+
+This project demonstrates how to:
+
+1. Set up a NestJS project with Prisma ORM.
+2. Define a Prisma schema for the Book model.
+3. Implement CRUD operations using Prisma Client.
+4. Structure a NestJS application with modules, services, and controllers.
+5. Create RESTful API endpoints for managing books.
+
+## Additional Enhancements
+
+You can further extend this project by implementing:
+
+- Authentication and authorization
+- Validation using `class-validator` and `class-transformer`
+- Swagger documentation for API exploration
+- Unit and integration tests
+- Pagination and filtering for the book list endpoint
+
+This project serves as a strong foundation for building more complex applications with NestJS and Prisma ORM.

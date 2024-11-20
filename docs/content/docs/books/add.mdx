@@ -1,0 +1,117 @@
+---
+title: Add Table Row
+icon: HomeIcon
+---
+
+# API Documentation: Add Row
+
+Add a new row to a specified table with column data.
+
+---
+
+## Endpoint
+
+**POST** `http://tryincant.com/api/v1/tables/add`
+
+---
+
+## Description
+
+This endpoint adds a new row to a specified table using the row’s data (`tableId`, `userId`, and column values). A Bearer token for authentication is required.
+
+---
+
+## Authentication
+
+### Required Header
+
+- **Authorization**: Bearer token
+
+  ```http
+  Authorization: Bearer `Your_token`
+  ```
+
+## Request Body
+
+| Parameter | Type             | Required | Description                             |
+| --------- | ---------------- | -------- | --------------------------------------- |
+| tableId   | number           | Yes      | The unique ID of the table to add a row |
+| userId    | string           | Yes      | The ID of the user associated with row  |
+| data      | array of objects | Yes      | Array of column data objects            |
+
+Each object in the `data` array includes:
+
+| Field        | Type    | Required | Description                            |
+| ------------ | ------- | -------- | -------------------------------------- |
+| colId        | number  | Yes      | The unique ID of the column            |
+| value        | string  | Yes      | The value to be added in the column    |
+| isSearchable | boolean | No       | Whether the column value is searchable |
+
+---
+
+The `data` parameter contains an array where each object corresponds to a column in the row being added, including its ID, value, and searchability setting.
+
+## Example Request
+
+```http
+POST http://tryincant.com/api/v1/tables/addRow
+Authorization: Bearer `Your_token`
+Content-Type: application/json
+
+{
+  "tableId": 103,
+  "userId": "kp_33aa20187066449b88b3244e8ef3325a",
+  "data": [
+    {
+      "colId": 573,
+      "value": "Sales Manager",
+      "isSearchable": true
+    },
+    {
+      "colId": 574,
+      "value": "Company XYZ"
+    }
+  ]
+}
+
+```
+
+## Response
+
+### Success Response
+
+- **Status Code:** `201 Created`
+- **Response Body:**
+
+  ```json
+  {
+    "message": "Success"
+  }
+  ```
+
+### Error Responses
+
+The Update Table Row endpoint may return several error responses based on different failure conditions. Below are the possible error responses:
+
+#### Unauthorized
+
+- **Status Code:** `401 Unauthorized`
+
+- **Response Body:**
+
+  ```json
+  {
+    "message": "Unauthorized"
+  }
+  ```
+
+### Invalid Columns Provided
+
+- **Status Code:** `400 Bad Request`
+- **Response Body:**
+
+  ```json
+  {
+    "message": "Invalid columns provided"
+  }
+  ```

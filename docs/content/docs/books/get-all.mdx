@@ -1,0 +1,106 @@
+---
+title: Get Table
+icon: HomeIcon
+---
+
+# API Documentation: Get Table Details
+
+Retrieve all rows for a specific table, including their associated column data.
+
+---
+
+## Endpoint
+
+**GET** `http://tryincant.com/api/v1/tables/get`
+
+## Description
+
+This endpoint retrieves the details of a specified table, including its description, name, columns, and rows. It requires an authorization token and a `tableId` as a query parameter.
+
+## Authentication
+
+### Required Header
+
+- **Authorization**: Bearer token
+
+## Query Parameters
+
+- **tableId** (number, required): The ID of the table to retrieve.
+- **locale** (string, optional): The locale for the response. Defaults to "en" if not provided.
+
+## Request Example
+
+```http
+GET http://tryincant.com/api/v1/tables/get?tableId=103&locale=en
+Authorization: Bearer `Your_token`
+```
+
+## Response
+
+### Success Response
+
+**Status Code:** `200 OK`
+
+**Response Body:**
+
+```json
+{
+  "data": {
+    "table": {
+      "description": "Positions of employers",
+      "name": "Positions",
+      "id": 103,
+      "columns": [
+        "Email",
+        "Company Name",
+        "Position Type",
+        "Location",
+        "Position Name",
+        "Minimum Experience",
+        "Job description"
+      ],
+      "rows": [
+        {
+          "id": 60,
+          "userId": "kp_33aa20187066449b88b3244e8ef3325a",
+          "cols": [
+            {
+              "id": 318,
+              "value": "Sales Manager",
+              "isSearchable": true,
+              "type": "TEXT",
+              "colId": 573
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+```
+
+### Error Responses
+
+The Update Table Row endpoint may return several error responses based on different failure conditions. Below are the possible error responses:
+
+- **Unauthorized**
+
+  - **Status Code:** `401 Unauthorized`
+  - **Response Body:**
+
+    ```json
+    {
+      "message": "Unauthorized"
+    }
+    ```
+
+- **No Translations Found**
+
+  - **Status Code:** `404 Not Found`
+  - **Response Body:**
+
+    ```json
+    {
+      "message": "No translations found"
+    }
+    ```

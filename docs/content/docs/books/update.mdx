@@ -1,0 +1,155 @@
+---
+title: Update Table Row
+icon: HomeIcon
+---
+
+# API Documentation: Update Table Row
+
+Update the values of specific columns for an existing row in a table. This endpoint allows users to modify the data associated with a row identified by its `tableRowId`.
+
+---
+
+## Endpoint
+
+**PATCH** `http://tryincant.com/api/v1/tables/update`
+
+---
+
+## Description
+
+This endpoint enables users to update one or more column values for a specific row in the designated table. The request requires authentication and should include the `tableRowId`, the user’s ID, and an array of updated column data. Successful updates return a confirmation message.
+
+---
+
+## Authentication
+
+### Required Header
+
+- **Authorization**: Bearer token
+
+  ```http
+  Authorization: Bearer `Your_token`
+  ```
+
+## Request Body
+
+The request body must be a JSON object containing the following parameters:
+
+| Parameter    | Type               | Required | Description                                        |
+| ------------ | ------------------ | -------- | -------------------------------------------------- |
+| `tableRowId` | `number`           | Yes      | The unique ID of the row to update                 |
+| `userId`     | `string`           | Yes      | The ID of the user making the request              |
+| `data`       | `array` of objects | Yes      | An array of objects containing updated column data |
+
+Each object in the `data` array should have the following structure:
+
+| Field   | Type     | Required | Description                           |
+| ------- | -------- | -------- | ------------------------------------- |
+| `colId` | `number` | Yes      | The unique ID of the column to update |
+| `value` | `string` | Yes      | The new value to set for the column   |
+
+### Example Request Body
+
+```json
+{
+  "tableRowId": 60,
+  "userId": "kp_33aa20187066449b88b3244e8ef3325a",
+  "data": [
+    {
+      "colId": 318,
+      "value": "Senior Sales Manager"
+    },
+    {
+      "colId": 319,
+      "value": "Tech Corp"
+    }
+  ]
+}
+```
+
+## Example Request
+
+```http
+POST http://tryincant.com/api/v1/tables/update
+Authorization: Bearer `Your_token`
+
+{
+  "tableRowId": 60,
+  "userId": "kp_33aa20187066449b88b3244e8ef3325a",
+  "data": [
+    {
+      "colId": 318,
+      "value": "Senior Sales Manager"
+    },
+    {
+      "colId": 319,
+      "value": "Tech Corp"
+    }
+  ]
+}
+
+```
+
+## Response
+
+The response from the Update Table Row endpoint can vary based on the outcome of the request.
+
+### Successful Response
+
+**Status Code:** `200 OK`
+
+**Response Body:**
+
+When the update is successful, the response will be a JSON object containing a success message.
+
+```json
+{
+  "message": "Success"
+}
+```
+
+## Error Responses
+
+The Update Table Row endpoint may return several error responses based on different failure conditions. Below are the possible error responses:
+
+### Unauthorized
+
+**Status Code:** `401 Unauthorized`
+
+**Response Body:**
+
+```json
+{
+  "message": "Unauthorized"
+}
+```
+
+### No Row Found
+
+**Status Code:** `404 Not Found`
+
+**Description:**  
+This error occurs when a request is made to update a table row that does not exist in the database. The specified `tableRowId` does not match any existing rows for the user in the specified table.
+
+**Response Body:**
+
+```json
+{
+  "message": "No row found"
+}
+```
+
+### Invalid Columns Provided
+
+**Status Code:** `400 Bad Request`
+
+**Description:**  
+This error occurs when the columns specified in the request do not match the columns defined for the specified table. It indicates that the user is attempting to update columns that are either invalid or do not exist in the context of the provided `tableId`.
+
+**Response Body:**
+
+```json
+{
+  "message": "Invalid columns provided"
+}
+```

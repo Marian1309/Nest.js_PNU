@@ -1,8 +1,10 @@
 {
   "scripts": {
     "prepare": "husky",
-    "format": "cd ./server && bun run format",
-    "lint": "cd ./server && bun run lint"
+    "format:server": "cd ./server && bun run format",
+    "lint:server": "cd ./server && bun run lint",
+    "format:docs": "cd ./docs && bun run format",
+    "lint:docs": "cd ./docs && bun run lint"
   },
   "dependencies": {
     "@commitlint/config-conventional": "^19.5.0",

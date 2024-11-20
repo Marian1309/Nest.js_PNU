@@ -1,0 +1,32 @@
+{
+  "name": "incant-docs",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev --port 3001",
+    "start": "next start",
+    "prod": "next build && next start",
+    "format": "prettier --write .",
+    "postinstall": "fumadocs-mdx"
+  },
+  "dependencies": {
+    "fumadocs-core": "14.1.1",
+    "fumadocs-mdx": "11.1.1",
+    "fumadocs-ui": "14.1.1",
+    "next": "14.1.1",
+    "next-themes": "^0.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@types/mdx": "^2.0.13",
+    "@types/node": "22.8.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3"
+  }
+}

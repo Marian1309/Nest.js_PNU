@@ -1,0 +1,91 @@
+---
+title: Delete Table Row
+icon: HomeIcon
+---
+
+# API Documentation: Delete Table Row
+
+Delete a specified row from a table in the project.
+
+---
+
+## Endpoint
+
+**DELETE** `http://tryincant.com/api/v1/tables/delete`
+
+---
+
+## Description
+
+This endpoint deletes a row from a specified table using the row’s unique identifier (`tableRowId`). A Bearer token for authentication is required.
+
+---
+
+## Authentication
+
+### Required Header
+
+- **Authorization**: Bearer token
+
+  ```http
+  Authorization: Bearer `Your_token`
+  ```
+
+---
+
+## Request Body
+
+| Parameter  | Type   | Required | Description                         |
+| ---------- | ------ | -------- | ----------------------------------- |
+| tableRowId | number | Yes      | The unique ID of the row to delete. |
+
+## Example Request
+
+```http
+POST http://tryincant.com/api/v1/tables/delete
+Authorization: Bearer `Your_token`
+Content-Type: application/json
+
+{
+  "tableRowId": 60
+}
+```
+
+## Response
+
+### Success Response
+
+- **Status Code:** `200 OK`
+- **Response Body:**
+
+  ```json
+  {
+    "message": "Success"
+  }
+  ```
+
+### Error Responses
+
+The Update Table Row endpoint may return several error responses based on different failure conditions. Below are the possible error responses:
+
+#### Unauthorized
+
+- **Status Code:** `401 Unauthorized`
+- **Response Body:**
+
+  ```json
+  {
+    "message": "Unauthorized"
+  }
+  ```
+
+#### No Row Found
+
+- **Status Code:** `404 Not Found`
+- **Response Body:**
+
+  ```json
+  {
+    "message": "No row found"
+  }
+  ```
